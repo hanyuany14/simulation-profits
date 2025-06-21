@@ -126,7 +126,6 @@ class S1_Model:
             operation_profit = (price - cost) * total_sold
 
             left_penalty_cost = (cost - salvage_value) * left_1
-            # left_penalty_cost = (cost - salvage_value) * total_left
             lost_penalty_cost = (price - cost) * total_lost
 
             profit = operation_profit - left_penalty_cost - lost_penalty_cost

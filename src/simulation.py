@@ -28,7 +28,7 @@ class Simulation:
         self._items_num_train = items_num_train
         self._items_num_test = items_num_test
 
-        self.assigned_T = list(range(2, time_period))  # 2 到 T-1
+        self.assigned_T = list(range(2, time_period+1))  # 2 到 T-1
         self.assigned_F = np.arange(0.1, 1.0, 0.1)
 
         self.service_lv = self.calculate_service_level(
@@ -102,13 +102,14 @@ class Simulation:
         # cal the Q_star
         Q_star = self.calculate_Q_star(demand_df_train, service_level=self.service_lv)
 
-        # ====訓練階段====
         Qk_hats_test = self.qk_hat.make_Qk_hat_df_with_known_Qk(
             demand_df_test,
             Qks_test,
             self.service_lv,
         )  # 我們使用 test 的資料來跑最佳化 in 學姊 case
-
+        print(f"Qk_hats_test: \n{Qk_hats_test}")
+        
+        # ====訓練階段====
         training_profits, training_results, training_stimulation_results = (
             self.perform_fold_training(
                 demand_df_train=demand_df_test,
